@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Scan staged changes for secrets before they enter history.
+# gitleaks is a hard requirement: a missing binary aborts the commit rather
+# than silently skipping the scan.
+set -euo pipefail
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks is required but was not found on PATH." >&2
+  echo "pre-commit:   brew install gitleaks" >&2
+  echo "pre-commit:   https://github.com/gitleaks/gitleaks#installing" >&2
+  exit 1
+fi
+
+if ! gitleaks git --staged --redact --verbose --no-banner; then
+  echo "pre-commit: gitleaks found secrets in the staged changes — commit aborted." >&2
+  echo "pre-commit: remove the secret and rotate it if it ever left this machine." >&2
+  echo "pre-commit: for a false positive, add a 'gitleaks:allow' comment on the line" >&2
+  echo "pre-commit: or an allowlist entry in .gitleaks.toml." >&2
+  exit 1
+fi

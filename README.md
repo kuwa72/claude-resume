@@ -101,6 +101,30 @@ Everything is **read-only** over `~/.claude/projects/`; nothing modifies your se
 Session logs contain your past prompts, and the picker preview displays them. On a shared
 machine, be mindful that anyone who can run `claude-resume` can read your Claude Code history.
 
+## Contributing
+
+`main` is protected: direct pushes are rejected, so every change lands through a pull request.
+
+[gitleaks](https://github.com/gitleaks/gitleaks) is **required** — the `pre-commit` hook scans
+staged changes for secrets and refuses to commit if gitleaks is missing. Set it up once after
+cloning:
+
+```sh
+brew install gitleaks          # or see the gitleaks install docs
+git config core.hooksPath .githooks
+```
+
+That enables two hooks: `pre-commit` (secret scan) and `pre-push` (rejects pushes to `main`
+locally, before the remote does).
+
+Then work on a topic branch:
+
+```sh
+git switch -c my-change
+git push -u origin my-change
+gh pr create
+```
+
 ## License
 
 MIT — see [LICENSE](LICENSE). Use it, fork it, share it freely.

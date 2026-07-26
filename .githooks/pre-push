@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Reject direct pushes to protected branches. Changes to these branches must
+# go through a pull request. Mirrors the server-side "protect-main" ruleset.
+set -euo pipefail
+
+PROTECTED_BRANCHES=("main" "master")
+
+is_protected() {
+  local branch="$1"
+  local protected
+  for protected in "${PROTECTED_BRANCHES[@]}"; do
+    if [ "$branch" = "$protected" ]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+# stdin: <local ref> <local sha> <remote ref> <remote sha>
+while read -r _local_ref _local_sha remote_ref _remote_sha; do
+  case "$remote_ref" in
+    refs/heads/*) branch="${remote_ref#refs/heads/}" ;;
+    *) continue ;;
+  esac
+
+  if ! is_protected "$branch"; then
+    continue
+  fi
+
+  echo "pre-push: direct push to '$branch' is not allowed." >&2
+  echo "pre-push: create a branch and open a pull request instead:" >&2
+  echo "pre-push:   git switch -c <topic-branch> && git push -u origin <topic-branch>" >&2
+  exit 1
+done
+
+exit 0
