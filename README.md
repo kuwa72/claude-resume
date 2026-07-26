@@ -22,6 +22,18 @@ another tool that already ships a `ccr` (e.g. [claude-code-router](https://githu
 If `ccr` is taken, just use `claude-resume`. To never define the short name, set
 `export CCR_NO_SHORT=1` before your shell sources it.
 
+## Documentation
+
+Full docs live in [`docs/`](docs/), organized by the
+[Diataxis](https://diataxis.fr/) framework:
+
+| Doc | Read it when you want to… |
+|-----|---------------------------|
+| [Tutorial](docs/tutorial.md) | go from install to your first resumed session, step by step |
+| [How-to guides](docs/how-to.md) | do a specific task: all-projects, the `ccr` collision, forks, uninstall |
+| [Reference](docs/reference.md) | look up exact commands, env vars, exit codes, and the helper contracts |
+| [Explanation](docs/explanation.md) | understand the design: why `ccr` is conditional, why Node helpers, and more |
+
 ## Supported platforms
 
 | | Status |
