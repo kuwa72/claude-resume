@@ -101,6 +101,24 @@ Everything is **read-only** over `~/.claude/projects/`; nothing modifies your se
 Session logs contain your past prompts, and the picker preview displays them. On a shared
 machine, be mindful that anyone who can run `claude-resume` can read your Claude Code history.
 
+## Contributing
+
+`main` is protected: direct pushes are rejected, so every change lands through a pull request.
+After cloning, enable the repo's git hooks once so a stray `git push` to `main` fails locally
+instead of at the remote:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+Then work on a topic branch:
+
+```sh
+git switch -c my-change
+git push -u origin my-change
+gh pr create
+```
+
 ## License
 
 MIT — see [LICENSE](LICENSE). Use it, fork it, share it freely.
