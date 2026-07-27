@@ -7,8 +7,8 @@
 ```
 resume session> ▌
   2026-07-24 15:16  BFFにプロシージャを追加したい     │ ▶ USER: BFFにプロシージャを追加したい
-  2026-07-24 11:02  MRP工程表のクラッシュを直す        │   claude: 了解です。まず該当箇所を…
-  2026-07-23 18:27  fewer-permission-prompts を回す    │ ▶ USER: /fewer-permission-prompts
+  2026-07-24 11:02  トップページのクラッシュを直す        │   claude: 了解です。まず該当箇所を…
+  2026-07-23 18:27  slack報告のあったissueを修正    │ ▶ USER: slackを参照して不具合の確認と修正
 ```
 
 - `claude-resume` — sessions for the **current project directory**
